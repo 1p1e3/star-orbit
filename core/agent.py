@@ -8,7 +8,7 @@ logger = Logger().get_logger()
 
 def gemini_client():
     # 创建客户端
-    client = genai.Client(api_key="YOUR_API_KEY")
+    client = genai.Client(api_key="your_api_key")
 
     # 创建对话
     chat = client.chats.create(model="gemini-2.0-flash")
@@ -30,7 +30,9 @@ def gemini_client():
     logger.info("Gemini 开始生成用例")
 
     # 提取JSON结果
-    cases_json_data = api_doc_handle.candidates[0].content.parts[0].text.strip("```json").strip("```")
+    cases_json_data = api_doc_handle.candidates[0].content.parts[0].text.strip("```").strip("json")
+
+    print("用例数据", cases_json_data)
 
     # 写入文件
     dump_case_to_json(cases_json_data, cases_json_path)
